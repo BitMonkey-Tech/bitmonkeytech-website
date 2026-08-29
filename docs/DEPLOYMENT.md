@@ -120,6 +120,20 @@ To deploy manually, use the **Deploy** button on the Application.
 
 No DNS change is required — the `*.dev` wildcard already covers the new subdomain.
 
+### Automated onboarding
+
+Steps 1–6 are automated by the **`bitmonkey-devops`** Claude Code plugin in the
+[`BitMonkey-Tech/ops`](https://github.com/BitMonkey-Tech/ops) repo. It creates
+the project, GitHub-wired application (static build, auto-deploy), and HTTPS
+domain, then triggers the first deploy — from one command:
+
+```
+node onboard.mjs --client "Acme Co" --repo BitMonkey-Tech/acme-website
+```
+
+or, in Claude Code, `/onboard-client Acme Co  BitMonkey-Tech/acme-website`.
+Setup and usage are in that repo's `README.md`.
+
 ---
 
 ## 7. Wildcard SSL (not currently needed)
