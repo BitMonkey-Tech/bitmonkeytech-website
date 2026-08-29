@@ -1,0 +1,904 @@
+/* ==========================================================================
+   BitMonkey Tech — shared stylesheet
+   Same structure as our other rebuilds: reset -> design tokens -> layout
+   helpers -> header/nav -> buttons -> page sections -> footer -> responsive.
+   ========================================================================== */
+
+/* Space Grotesk for headings (their display font), Poppins for body/nav text
+   — the same two typefaces the live bitmonkeytech.com site uses. */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-cream: #fffcf2;      /* page background */
+  --color-teal: #035772;       /* brand accent — buttons, section bands */
+  --color-teal-light: #4a7f92; /* lighter teal for hovers/secondary accents */
+  --color-dark: #091405;       /* headings */
+  --color-text: #474e40;       /* body copy, nav links */
+  --color-olive: #c2c2b7;      /* muted card background accent */
+
+  --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+
+  --max-width: 1200px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  line-height: 1.65;
+  background: var(--color-cream);
+}
+
+img, svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-dark);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   Header / navigation
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-cream);
+  padding: 14px 0;
+}
+
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  height: 56px;
+  width: auto;
+}
+
+.logo-text .brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  display: block;
+}
+
+.logo-text .tagline {
+  font-size: 0.75rem;
+  color: var(--color-text);
+  display: block;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.main-nav a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a[aria-current="page"] {
+  color: var(--color-teal);
+  border-bottom-color: var(--color-teal);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--color-dark);
+}
+
+.menu-toggle span {
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--color-dark);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--color-teal);
+  color: var(--color-cream);
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-cream);
+  color: var(--color-cream);
+}
+
+.btn-outline:hover {
+  background: var(--color-cream);
+  color: var(--color-teal);
+}
+
+/* ==========================================================================
+   Wave dividers — a lightweight stand-in for Wix's shape-divider SVGs.
+   Each section that needs one gets a ::before/::after pseudo-element with a
+   simple wave drawn in currentColor via clip-path.
+   ========================================================================== */
+
+.wave-top {
+  position: relative;
+}
+
+.wave-top::before {
+  content: "";
+  display: block;
+  height: 80px;
+  background: var(--color-teal);
+  clip-path: polygon(0 100%, 100% 40%, 100% 100%);
+}
+
+.wave-bottom-teal {
+  position: relative;
+}
+
+.wave-bottom-teal::after {
+  content: "";
+  display: block;
+  height: 80px;
+  background: var(--color-teal);
+  clip-path: polygon(0 0, 100% 60%, 100% 0);
+}
+
+/* ==========================================================================
+   Hero (home page)
+   ========================================================================== */
+
+.hero {
+  background: var(--color-teal);
+  color: var(--color-cream);
+  padding: 90px 0 110px;
+}
+
+.hero .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero h1 {
+  color: var(--color-cream);
+  font-size: 3rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  opacity: 0.92;
+}
+
+/* ==========================================================================
+   Page hero (inner pages)
+   ========================================================================== */
+
+.page-hero {
+  background: var(--color-teal);
+  color: var(--color-cream);
+  padding: 90px 0 130px;
+}
+
+.page-hero h1 {
+  color: var(--color-cream);
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+
+.page-hero p {
+  max-width: 700px;
+  font-size: 1.05rem;
+  opacity: 0.92;
+}
+
+/* ==========================================================================
+   Intro section ("Small Business Tech Solutions")
+   ========================================================================== */
+
+.intro {
+  padding: 100px 0 60px;
+}
+
+.intro .container {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.intro h1 {
+  font-size: 2.75rem;
+  margin-bottom: 24px;
+}
+
+.intro p {
+  margin-bottom: 28px;
+}
+
+.intro-features {
+  max-width: var(--max-width);
+  margin: 60px auto 0;
+  padding: 0 24px;
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.feature-item .icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* ==========================================================================
+   Services section (teal band with browser-mockup cards)
+   ========================================================================== */
+
+.services {
+  background: var(--color-teal);
+  color: var(--color-cream);
+  padding: 100px 0 140px;
+}
+
+.services-header h2 {
+  color: var(--color-cream);
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.services-header p {
+  max-width: 700px;
+  opacity: 0.92;
+  margin-bottom: 56px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* The little "browser window" card treatment used throughout the site:
+   a dark top bar with three dots, like a mock browser chrome. */
+.browser-card {
+  background: var(--color-cream);
+  border: 1px solid var(--color-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  color: var(--color-dark);
+}
+
+.browser-card-bar {
+  background: var(--color-teal);
+  padding: 10px 14px;
+  display: flex;
+  gap: 6px;
+}
+
+.browser-card-bar span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-dark);
+  opacity: 0.5;
+}
+
+.browser-card-body {
+  padding: 28px;
+}
+
+.browser-card-body h3 {
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+}
+
+.browser-card-body ul li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.browser-card-body ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-teal);
+}
+
+/* ==========================================================================
+   Tailored section (illustration + feature list)
+   ========================================================================== */
+
+.tailored {
+  padding: 100px 0;
+}
+
+.tailored .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.tailored-art {
+  background: var(--color-cream);
+  border: 2px solid var(--color-dark);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tailored-art-bar {
+  background: var(--color-teal);
+  height: 26px;
+}
+
+.tailored-art-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tailored-art-line {
+  height: 14px;
+  border-radius: 4px;
+  background: var(--color-olive);
+  opacity: 0.6;
+}
+
+.tailored-art-line.short {
+  width: 60%;
+}
+
+.tailored h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.tailored p {
+  margin-bottom: 28px;
+}
+
+.tailored-features {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+
+.testimonials {
+  padding: 100px 0;
+}
+
+.testimonials h2 {
+  font-size: 2.4rem;
+  margin-bottom: 56px;
+  text-align: center;
+}
+
+.testimonial-card {
+  position: relative;
+}
+
+.testimonial-card .browser-card-body p {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-card .browser-card-body cite {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Flexible Packages (teal band, single card + copy)
+   ========================================================================== */
+
+.packages {
+  background: var(--color-teal);
+  color: var(--color-cream);
+  padding: 60px 0 140px;
+}
+
+.packages .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.packages h2 {
+  color: var(--color-cream);
+  font-size: 2.6rem;
+  margin-bottom: 20px;
+}
+
+.packages p {
+  opacity: 0.92;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   CTA statement
+   ========================================================================== */
+
+.cta-statement {
+  padding: 100px 0 60px;
+  text-align: center;
+}
+
+.cta-statement h2 {
+  font-size: 2rem;
+  max-width: 850px;
+  margin: 0 auto 32px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Pricing grid (services page)
+   ========================================================================== */
+
+.pricing-section {
+  padding: 100px 0;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.pricing-grid .browser-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-grid h3 {
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+
+.pricing-grid .price {
+  color: var(--color-teal);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.form-section {
+  padding: 60px 0 120px;
+}
+
+.form-section.on-teal {
+  background: var(--color-teal);
+  color: var(--color-cream);
+}
+
+.form-section h2 {
+  margin-bottom: 12px;
+}
+
+.form-section.on-teal h2 {
+  color: var(--color-cream);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field.full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 10px 4px;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.form-field textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: currentColor;
+  opacity: 0.55;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-bottom-color: var(--color-teal);
+}
+
+.form-section .btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   FAQ (contact page)
+   ========================================================================== */
+
+.faq {
+  padding: 100px 0;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.faq-header h2 {
+  font-size: 2.2rem;
+}
+
+.faq-search {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 8px 4px;
+  border: none;
+  border-bottom: 1px solid var(--color-dark);
+  background: transparent;
+  min-width: 260px;
+}
+
+.faq-tabs {
+  display: flex;
+  gap: 32px;
+  border-bottom: 1px solid #d8d6cc;
+  margin-bottom: 32px;
+}
+
+.faq-tab {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  padding: 12px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.faq-tab[aria-selected="true"] {
+  color: var(--color-teal);
+  border-bottom-color: var(--color-teal);
+}
+
+.faq-panel {
+  display: none;
+}
+
+.faq-panel.active {
+  display: block;
+}
+
+.faq-item {
+  border-bottom: 1px solid #d8d6cc;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  padding: 20px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.faq-question::after {
+  content: "+";
+  font-size: 1.4rem;
+  color: var(--color-teal);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.open .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 220px;
+}
+
+.faq-answer p {
+  padding-bottom: 20px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  background: var(--color-teal);
+  color: var(--color-cream);
+  padding: 64px 0 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand img {
+  height: 44px;
+}
+
+.footer-brand .brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: block;
+}
+
+.footer-brand .tagline {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  display: block;
+}
+
+.site-footer h3 {
+  color: var(--color-cream);
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.site-footer p,
+.site-footer a {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.footer-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.footer-form input {
+  font-family: var(--font-body);
+  padding: 10px 12px;
+  border: none;
+  border-radius: 4px;
+  background: rgba(255, 252, 242, 0.85);
+  color: var(--color-dark);
+  min-width: 180px;
+}
+
+.footer-form .btn {
+  border-color: var(--color-cream);
+  background: var(--color-cream);
+  color: var(--color-teal);
+  padding: 10px 20px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .hero .container,
+  .intro .container,
+  .tailored .container,
+  .packages .container {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-cream);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 8px 24px 16px;
+    display: none;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .header-actions .btn-primary {
+    display: none;
+  }
+
+  .hero h1,
+  .page-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .intro h1 {
+    font-size: 2.1rem;
+  }
+
+  .intro-features {
+    gap: 24px;
+  }
+
+  .faq-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
