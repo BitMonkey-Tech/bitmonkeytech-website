@@ -57,7 +57,11 @@ document.querySelectorAll(".js-form").forEach((form) => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    if (GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
+    if (
+      GOOGLE_SCRIPT_URL.includes(
+        "https://script.google.com/macros/s/AKfycbzXiFDQajW965qfuaLkTHdwV5D2jx8GSOCVuGgt4lX2RsV5Mf98g1A0_JJa17xrgpZF/exec",
+      )
+    ) {
       // Setup step skipped — tell whoever's testing it rather than
       // silently doing nothing.
       if (status) {
