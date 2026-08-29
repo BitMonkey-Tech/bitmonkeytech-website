@@ -850,9 +850,11 @@ h1, h2, h3, h4 {
   .form-grid {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 720px) {
+  /* Nav collapses to a hamburger here too, not just on phones — at
+     tablet widths (roughly 768-900px) the logo + tagline + 3 links +
+     button all fighting for one row got cramped, so tablets get the
+     same dropdown treatment as phones. */
   .main-nav {
     position: absolute;
     top: 100%;
@@ -880,6 +882,12 @@ h1, h2, h3, h4 {
     display: flex;
   }
 
+  .logo-text .tagline {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
   .header-actions .btn-primary {
     display: none;
   }
