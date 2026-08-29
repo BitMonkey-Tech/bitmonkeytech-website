@@ -83,7 +83,13 @@ function doPost(e) {
    ```javascript
    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
    ```
-3. Replace the placeholder with the URL you copied in step 2.6.
+3. Replace **only the quoted value on that one line** with the URL you
+   copied in step 2.6. Do not do a project-wide find/replace of
+   `PASTE_YOUR...` — a few lines below there's a guard
+   (`GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")`) that shows the "not
+   connected yet" message. If you overwrite the string in that guard too,
+   the check becomes always-true and **every submission silently stops
+   before it's sent**.
 4. Save, then test each form on the live site — a submission should
    land in the info@bitmonkeytech.com inbox within a few seconds.
 
@@ -96,9 +102,21 @@ NOT update the live Web App URL's behavior until you do this.
 
 ## Troubleshooting
 
-- **Nothing arrives**: double check the URL in `main.js` doesn't still
-  say `PASTE_YOUR...`, and that step 2.3's "Who has access" is set to
-  **Anyone** (not "Anyone with Google account" — the site visitor isn't
-  logged in to anything).
+- **No network request fires at all** (check the browser's Network tab on
+  submit): the `GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")` guard in
+  `js/main.js` is matching. Make sure `PASTE_YOUR` still appears *only*
+  inside that guard, and that `GOOGLE_SCRIPT_URL` itself is your real
+  `…/exec` URL. See step 3 above.
+- **Request fires but nothing arrives**: the browser can't read the
+  response (`mode: 'no-cors'` — the page always shows "Thanks!" even on
+  failure), so debug the script directly:
+  - Open the `…/exec` URL in a browser. There's no `doGet`, so you should
+    see a Google error like *"Script function not found: doGet"* — that
+    means it's deployed and public. A **sign-in page** instead means
+    step 2.3's **"Who has access"** is wrong — it must be **Anyone**, not
+    "Anyone with Google account" (the site visitor isn't logged in).
+  - If you edited the script after deploying, **redeploy a new version**
+    (see "Updating the script later" above) — edits aren't live until then.
+  - Confirm the URL ends in **`/exec`**, not `/dev`.
 - **Emails end up in Spam**: mark one as "Not spam" once — Gmail learns
   from that.
