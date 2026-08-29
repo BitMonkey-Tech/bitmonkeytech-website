@@ -25,6 +25,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` in a browser.
 
+## Deployment
+
+The dev site auto-deploys to a self-hosted Dokploy server on every push to the
+`dev` branch, served at `https://bitmonkeytech.dev.bitmonkeytech.com`. See
+**[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** for the full setup (DNS, the Dokploy
+Application config, and how to add new client dev sites to the same server).
+
 ## Forms
 
 All three forms (Contact, the Services "Get Started" form, and the
