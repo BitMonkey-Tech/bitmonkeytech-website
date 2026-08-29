@@ -11,7 +11,8 @@ and JavaScript — no build step, no framework.
 - `contact.html` — contact form + FAQ (tabbed accordion)
 - `css/style.css` — all styling, using CSS custom properties for the
   brand colors and fonts (see `:root` at the top of the file)
-- `js/main.js` — mobile menu toggle + the FAQ tabs/accordion
+- `js/main.js` — mobile menu toggle, the FAQ tabs/accordion, and the
+  form-submission handler (see below)
 - `images/mascot.svg` — the BitMonkey superhero mascot illustration,
   extracted directly from the live site's inline SVG
 - `images/mascot-icon.png` — the small logo mark used in the header/footer
@@ -24,11 +25,19 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000` in a browser.
 
+## Forms
+
+All three forms (Contact, the Services "Get Started" form, and the
+footer newsletter signup) submit to a Google Apps Script Web App, which
+emails the submission to info@bitmonkeytech.com via Gmail — no
+third-party form service, just Google. **See
+[APPS_SCRIPT_SETUP.md](APPS_SCRIPT_SETUP.md)** for the one-time setup
+(deploying the script in your Google account and pasting its URL into
+`js/main.js`). Until that's done, submitting a form shows a "not
+connected yet" message instead of silently failing.
+
 ## Notes / known simplifications
 
-- The contact, "Get Started", and newsletter forms don't submit anywhere
-  yet — they need a backend (a form service like Formspree, or a small
-  serverless function) to actually send the data somewhere.
 - The live site uses several large custom illustrations (Wix stock
   vector art) beyond the mascot — the "tailored for your business" scene
   and the "team building a website" scene near the footer. Those were

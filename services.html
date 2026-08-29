@@ -172,7 +172,8 @@
   <div class="container">
     <h2>Get Started</h2>
     <p>Let us know how we can help</p>
-    <form class="form-grid">
+    <form class="form-grid js-form">
+      <input type="hidden" name="form_name" value="Get Started Form">
       <div class="form-field">
         <label for="s-first-name">First Name</label>
         <input type="text" id="s-first-name" name="first-name">
@@ -190,6 +191,7 @@
         <input type="text" id="s-help" name="help">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
+      <p class="form-status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -214,9 +216,11 @@
       <div>
         <h3>Connect with Us</h3>
         <p>Sign up to get the latest news and updates.</p>
-        <form class="footer-form">
-          <input type="email" placeholder="E-mail" aria-label="Email">
+        <form class="footer-form js-form">
+          <input type="hidden" name="form_name" value="Newsletter Signup">
+          <input type="email" name="email" placeholder="E-mail" aria-label="Email" required>
           <button type="submit" class="btn">Subscribe</button>
+          <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
     </div>

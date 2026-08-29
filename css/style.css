@@ -640,6 +640,29 @@ h1, h2, h3, h4 {
   margin-top: 8px;
 }
 
+.form-section .btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.form-status {
+  grid-column: 1 / -1;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 1.2em;
+}
+
+.form-status.error {
+  color: #c0392b;
+}
+
+/* On the teal contact form, the default error red is too dark to read
+   against the background — swap in a lighter tone that still reads as
+   "something's wrong" without disappearing. */
+.on-teal .form-status.error {
+  color: #ffb4a8;
+}
+
 /* ==========================================================================
    FAQ (contact page)
    ========================================================================== */
@@ -823,6 +846,11 @@ h1, h2, h3, h4 {
   background: var(--color-cream);
   color: var(--color-teal);
   padding: 10px 20px;
+}
+
+.footer-form .form-status {
+  flex-basis: 100%;
+  margin-top: 4px;
 }
 
 /* ==========================================================================

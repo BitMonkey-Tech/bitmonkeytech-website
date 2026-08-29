@@ -252,9 +252,11 @@
       <div>
         <h3>Connect with Us</h3>
         <p>Sign up to get the latest news and updates.</p>
-        <form class="footer-form">
-          <input type="email" placeholder="E-mail" aria-label="Email">
+        <form class="footer-form js-form">
+          <input type="hidden" name="form_name" value="Newsletter Signup">
+          <input type="email" name="email" placeholder="E-mail" aria-label="Email" required>
           <button type="submit" class="btn">Subscribe</button>
+          <p class="form-status" aria-live="polite"></p>
         </form>
       </div>
     </div>
