@@ -49,7 +49,7 @@ document.querySelectorAll(".faq-item").forEach((item) => {
 // info@bitmonkeytech.com. Paste your deployed script's URL below.
 // ---------------------------------------------------------------------
 const GOOGLE_SCRIPT_URL =
-  "AKfycbzXiFDQajW965qfuaLkTHdwV5D2jx8GSOCVuGgt4lX2RsV5Mf98g1A0_JJa17xrgpZF";
+  "https://script.google.com/macros/s/AKfycbzXiFDQajW965qfuaLkTHdwV5D2jx8GSOCVuGgt4lX2RsV5Mf98g1A0_JJa17xrgpZF/exec";
 
 document.querySelectorAll(".js-form").forEach((form) => {
   const status = form.querySelector(".form-status");
