@@ -41,62 +41,58 @@ document.querySelectorAll(".faq-item").forEach((item) => {
 });
 
 // ---------------------------------------------------------------------
-// Form submissions -> Google Apps Script -> email
+// Form submissions -> postbox -> email
 //
-// A static site has no server of its own, so it can't send email by
-// itself. This posts each form's data to a Google Apps Script "Web App"
-// (see APPS_SCRIPT_SETUP.md) which uses Gmail to email the submission to
-// info@bitmonkeytech.com. Paste your deployed script's URL below.
+// A static site has no server of its own, so each form POSTs its data to
+// postbox (the BitMonkey Tech mail service at postbox.bitmonkeytech.com),
+// which emails the submission to info@bitmonkeytech.com via Resend. FORM_ID
+// is this site's key in postbox's clients.json; every form on the site
+// shares it, and the hidden "form_name" field distinguishes them in the
+// email. Each .js-form also carries a hidden "_gotcha" honeypot input —
+// bots fill it, real people don't, and postbox silently drops those.
 // ---------------------------------------------------------------------
-const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzXiFDQajW965qfuaLkTHdwV5D2jx8GSOCVuGgt4lX2RsV5Mf98g1A0_JJa17xrgpZF/exec";
+const POSTBOX_ENDPOINT = "https://postbox.bitmonkeytech.com";
+const FORM_ID = "bitmonkeytech";
 
 document.querySelectorAll(".js-form").forEach((form) => {
   const status = form.querySelector(".form-status");
+  const submitBtn = form.querySelector('button[type="submit"]');
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) {
-      // Setup step skipped — tell whoever's testing it rather than
-      // silently doing nothing.
-      if (status) {
-        status.textContent =
-          "This form isn't connected yet — see APPS_SCRIPT_SETUP.md.";
-        status.classList.add("error");
-      }
-      return;
+    if (submitBtn) submitBtn.disabled = true;
+    if (status) {
+      status.textContent = "Sending…";
+      status.classList.remove("error");
     }
 
-    const submitBtn = form.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
+    try {
+      // postbox sends proper CORS headers, so unlike the old Apps Script
+      // setup we can actually read the response and report real success
+      // or failure.
+      const res = await fetch(`${POSTBOX_ENDPOINT}/f/${FORM_ID}`, {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const data = await res.json().catch(() => ({}));
 
-    // Apps Script Web Apps don't send back CORS headers, so with
-    // mode: 'no-cors' the browser can't let us read the response —
-    // it comes back "opaque". The request still reaches Google and the
-    // email still sends; we just can't confirm success from here, so we
-    // optimistically show the thank-you message once the request completes.
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: new FormData(form),
-    })
-      .then(() => {
+      if (res.ok && data.ok) {
         form.reset();
         if (status) {
           status.textContent = "Thanks! We'll be in touch soon.";
           status.classList.remove("error");
         }
-      })
-      .catch(() => {
-        if (status) {
-          status.textContent =
-            "Something went wrong — please try again or email us directly.";
-          status.classList.add("error");
-        }
-      })
-      .finally(() => {
-        if (submitBtn) submitBtn.disabled = false;
-      });
+      } else {
+        throw new Error(data.error || `HTTP ${res.status}`);
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent =
+          "Something went wrong — please try again or email us directly.";
+        status.classList.add("error");
+      }
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
   });
 });

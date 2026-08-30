@@ -12,7 +12,7 @@ and JavaScript — no build step, no framework.
 - `css/style.css` — all styling, using CSS custom properties for the
   brand colors and fonts (see `:root` at the top of the file)
 - `js/main.js` — mobile menu toggle, the FAQ tabs/accordion, and the
-  form-submission handler (see below)
+  form-submission handler (posts to postbox — see Forms)
 - `images/mascot.svg` — the BitMonkey superhero mascot illustration,
   extracted directly from the live site's inline SVG
 - `images/mascot-icon.png` — the small logo mark used in the header/footer
@@ -34,14 +34,12 @@ Application config, and how to add new client dev sites to the same server).
 
 ## Forms
 
-All three forms (Contact, the Services "Get Started" form, and the
-footer newsletter signup) submit to a Google Apps Script Web App, which
-emails the submission to info@bitmonkeytech.com via Gmail — no
-third-party form service, just Google. **See
-[APPS_SCRIPT_SETUP.md](APPS_SCRIPT_SETUP.md)** for the one-time setup
-(deploying the script in your Google account and pasting its URL into
-`js/main.js`). Until that's done, submitting a form shows a "not
-connected yet" message instead of silently failing.
+All forms (Contact, the Services "Get Started" form, and the footer
+newsletter signup) POST to **postbox** — the BitMonkey Tech mail service
+at `postbox.bitmonkeytech.com` — which emails the submission to
+info@bitmonkeytech.com via Resend. The handler is in `js/main.js`
+(`FORM_ID = "bitmonkeytech"`); each form carries a hidden `_gotcha`
+honeypot input. See **[docs/FORMS.md](docs/FORMS.md)**.
 
 ## Notes / known simplifications
 
