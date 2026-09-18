@@ -238,7 +238,7 @@ h1, h2, h3, h4 {
   align-items: center;
 }
 
-.hero h1 {
+.hero h2 {
   color: var(--color-cream);
   font-size: 3rem;
 }
@@ -431,15 +431,14 @@ h1, h2, h3, h4 {
   gap: 14px;
 }
 
-.tailored-art-line {
-  height: 14px;
-  border-radius: 4px;
-  background: var(--color-olive);
-  opacity: 0.6;
+.tailored-art-title {
+  font-family: var(--font-display);
+  color: var(--color-dark);
+  font-size: 1.3rem;
 }
 
-.tailored-art-line.short {
-  width: 60%;
+.tailored-art-desc {
+  font-size: 0.95rem;
 }
 
 .tailored h2 {
@@ -453,8 +452,8 @@ h1, h2, h3, h4 {
 
 .tailored-features {
   display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* ==========================================================================
@@ -923,7 +922,7 @@ h1, h2, h3, h4 {
     display: none;
   }
 
-  .hero h1,
+  .hero h2,
   .page-hero h1 {
     font-size: 2.2rem;
   }
