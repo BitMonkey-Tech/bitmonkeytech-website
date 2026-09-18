@@ -21,6 +21,7 @@
   --color-dark: #091405;       /* headings */
   --color-text: #474e40;       /* body copy, nav links */
   --color-olive: #c2c2b7;      /* muted card background accent */
+  --color-burgundy: #98002e;   /* mascot cape accent */
 
   --font-display: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
   --font-body: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
@@ -358,7 +359,7 @@ h1, h2, h3, h4 {
 }
 
 .browser-card-bar {
-  background: var(--color-teal);
+  background: var(--color-burgundy);
   padding: 10px 14px;
   display: flex;
   gap: 6px;
@@ -802,11 +803,13 @@ h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
+  color: var(--color-cream);
   display: block;
 }
 
 .footer-brand .tagline {
   font-size: 0.8rem;
+  color: var(--color-cream);
   opacity: 0.85;
   display: block;
 }
